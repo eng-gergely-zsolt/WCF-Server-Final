@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/WCFService" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/WCFService" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:complexType name="ArrayOfStationType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="StationType" nillable="true" type="tns:StationType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfStationType" nillable="true" type="tns:ArrayOfStationType" />
+  <xs:complexType name="StationType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="latitude" type="xs:double" />
+      <xs:element minOccurs="0" name="longitude" type="xs:double" />
+      <xs:element minOccurs="0" name="station_name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StationType" nillable="true" type="tns:StationType" />
+  <xs:complexType name="ArrayOfLineTraceType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LineTraceType" nillable="true" type="tns:LineTraceType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLineTraceType" nillable="true" type="tns:ArrayOfLineTraceType" />
+  <xs:complexType name="LineTraceType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="LineTraceData" nillable="true" type="tns:ArrayOfLineTraceDataType" />
+      <xs:element minOccurs="0" name="line_id" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LineTraceType" nillable="true" type="tns:LineTraceType" />
+  <xs:complexType name="ArrayOfLineTraceDataType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LineTraceDataType" nillable="true" type="tns:LineTraceDataType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLineTraceDataType" nillable="true" type="tns:ArrayOfLineTraceDataType" />
+  <xs:complexType name="LineTraceDataType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="direction" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="latitude" type="xs:double" />
+      <xs:element minOccurs="0" name="longitude" type="xs:double" />
+      <xs:element minOccurs="0" name="order_number" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LineTraceDataType" nillable="true" type="tns:LineTraceDataType" />
+  <xs:complexType name="ArrayOfStationOnLineType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="StationOnLineType" nillable="true" type="tns:StationOnLineType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfStationOnLineType" nillable="true" type="tns:ArrayOfStationOnLineType" />
+  <xs:complexType name="StationOnLineType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="LineData" nillable="true" type="tns:ArrayOfStationOnLineDataType" />
+      <xs:element minOccurs="0" name="line_id" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StationOnLineType" nillable="true" type="tns:StationOnLineType" />
+  <xs:complexType name="ArrayOfStationOnLineDataType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="StationOnLineDataType" nillable="true" type="tns:StationOnLineDataType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfStationOnLineDataType" nillable="true" type="tns:ArrayOfStationOnLineDataType" />
+  <xs:complexType name="StationOnLineDataType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="direction" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="order_number" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="station_id" type="xs:unsignedByte" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StationOnLineDataType" nillable="true" type="tns:StationOnLineDataType" />
+  <xs:complexType name="ArrayOfArrivalTimeType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ArrivalTimeType" nillable="true" type="tns:ArrivalTimeType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfArrivalTimeType" nillable="true" type="tns:ArrayOfArrivalTimeType" />
+  <xs:complexType name="ArrivalTimeType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BusID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RequiredTime" type="ser:duration" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrivalTimeType" nillable="true" type="tns:ArrivalTimeType" />
+  <xs:complexType name="ArrayOfBusDataType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BusDataType" nillable="true" type="tns:BusDataType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBusDataType" nillable="true" type="tns:ArrayOfBusDataType" />
+  <xs:complexType name="BusDataType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Actual_Latitude" type="xs:double" />
+      <xs:element minOccurs="0" name="Actual_Longitude" type="xs:double" />
+      <xs:element minOccurs="0" name="BusId" type="xs:short" />
+      <xs:element minOccurs="0" name="LineId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Measurement_Timestamp" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BusDataType" nillable="true" type="tns:BusDataType" />
+  <xs:complexType name="ArrayOfbus">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="bus" nillable="true" type="tns:bus" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfbus" nillable="true" type="tns:ArrayOfbus" />
+  <xs:complexType name="bus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="xs:short" />
+      <xs:element minOccurs="0" name="line_id" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="number_plate" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="bus" nillable="true" type="tns:bus" />
+  <xs:complexType name="ArrayOfTimetableType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TimetableType" nillable="true" type="tns:TimetableType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTimetableType" nillable="true" type="tns:ArrayOfTimetableType" />
+  <xs:complexType name="TimetableType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BusNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StartTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StationId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TimetableType" nillable="true" type="tns:TimetableType" />
+  <xs:complexType name="MeasurementType">
+    <xs:sequence>
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Acceleration" nillable="true" type="q1:ArrayOfdouble" />
+      <xs:element minOccurs="0" name="Actual_Latitude" type="xs:double" />
+      <xs:element minOccurs="0" name="Actual_Longitude" type="xs:double" />
+      <xs:element minOccurs="0" name="Actual_Speed" type="xs:double" />
+      <xs:element minOccurs="0" name="BusId" type="xs:short" />
+      <xs:element minOccurs="0" name="BusName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Direction" type="xs:int" />
+      <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Gyroscope" nillable="true" type="q2:ArrayOfdouble" />
+      <xs:element minOccurs="0" name="Position_Accuracy" type="xs:double" />
+      <xs:element minOccurs="0" name="Speed_Accuracy" type="xs:double" />
+      <xs:element minOccurs="0" name="Timestamp" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MeasurementType" nillable="true" type="tns:MeasurementType" />
+</xs:schema>

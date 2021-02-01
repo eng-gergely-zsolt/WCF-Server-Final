@@ -1,0 +1,649 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="bus_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="bus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="number_plate" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="line_id" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="bus_data">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="bus_id" Type="smallint" Nullable="false" />
+          <Property Name="number_plate" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="latitude" Type="float" Nullable="false" />
+          <Property Name="longitude" Type="float" Nullable="false" />
+          <Property Name="speed" Type="float" Nullable="false" />
+          <Property Name="measurement_timestamp" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="bus_data2">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="line_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="latitude" Type="float" Nullable="false" />
+          <Property Name="longitude" Type="float" Nullable="false" />
+          <Property Name="measurement_timestamp" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="bus_driver_data">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="bus_id" Type="smallint" Nullable="false" />
+          <Property Name="latitude" Type="float" Nullable="false" />
+          <Property Name="longitude" Type="float" Nullable="false" />
+          <Property Name="position_accuracy" Type="float" Nullable="false" />
+          <Property Name="speed" Type="float" Nullable="false" />
+          <Property Name="speed_accuracy" Type="float" Nullable="false" />
+          <Property Name="direction" Type="int" Nullable="false" />
+          <Property Name="accel_x" Type="float" Nullable="false" />
+          <Property Name="accel_y" Type="float" Nullable="false" />
+          <Property Name="accel_z" Type="float" Nullable="false" />
+          <Property Name="gyro_x" Type="float" Nullable="false" />
+          <Property Name="gyro_y" Type="float" Nullable="false" />
+          <Property Name="gyro_z" Type="float" Nullable="false" />
+          <Property Name="trace_match" Type="int" />
+          <Property Name="measurement_timestamp" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="bus_measurement">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="bus_id" Type="smallint" Nullable="false" />
+          <Property Name="latitude" Type="float" Nullable="false" />
+          <Property Name="longitude" Type="float" Nullable="false" />
+          <Property Name="position_accuracy" Type="float" Nullable="false" />
+          <Property Name="speed" Type="float" Nullable="false" />
+          <Property Name="speed_accuracy" Type="float" Nullable="false" />
+          <Property Name="direction" Type="int" Nullable="false" />
+          <Property Name="accel_x" Type="float" Nullable="false" />
+          <Property Name="accel_y" Type="float" Nullable="false" />
+          <Property Name="accel_z" Type="float" Nullable="false" />
+          <Property Name="gyro_x" Type="float" Nullable="false" />
+          <Property Name="gyro_y" Type="float" Nullable="false" />
+          <Property Name="gyro_z" Type="float" Nullable="false" />
+          <Property Name="trace_match" Type="int" />
+          <Property Name="measurement_timestamp" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="bus_position">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="bus_id" Type="smallint" Nullable="false" />
+          <Property Name="latitude" Type="float" Nullable="false" />
+          <Property Name="longitude" Type="float" Nullable="false" />
+          <Property Name="datapoints_nearby" Type="tinyint" />
+          <Property Name="measurement_timestamp" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="bus_reference">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="from_station_id" Type="tinyint" Nullable="false" />
+          <Property Name="to_station_id" Type="tinyint" Nullable="false" />
+          <Property Name="duration" Type="time" Precision="7" Nullable="false" />
+          <Property Name="interval_time" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="bus_simulation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="bus_id" Type="smallint" Nullable="false" />
+          <Property Name="last_check_in" Type="int" Nullable="false" />
+          <Property Name="measurement_timestamp" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="bus_trace">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="line_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="latitude" Type="float" Nullable="false" />
+          <Property Name="longitude" Type="float" Nullable="false" />
+          <Property Name="direction" Type="tinyint" Nullable="false" />
+          <Property Name="order_number" Type="smallint" Nullable="false" />
+          <Property Name="exactTime" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="car_data">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="bus_id" Type="smallint" Nullable="false" />
+          <Property Name="latitude" Type="float" Nullable="false" />
+          <Property Name="longitude" Type="float" Nullable="false" />
+          <Property Name="position_accuracy" Type="float" Nullable="false" />
+          <Property Name="speed" Type="float" Nullable="false" />
+          <Property Name="speed_accuracy" Type="float" Nullable="false" />
+          <Property Name="direction" Type="int" Nullable="false" />
+          <Property Name="accel_x" Type="float" Nullable="false" />
+          <Property Name="accel_y" Type="float" Nullable="false" />
+          <Property Name="accel_z" Type="float" Nullable="false" />
+          <Property Name="gyro_x" Type="float" Nullable="false" />
+          <Property Name="gyro_y" Type="float" Nullable="false" />
+          <Property Name="gyro_z" Type="float" Nullable="false" />
+          <Property Name="trace_match" Type="int" />
+          <Property Name="measurement_timestamp" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="line">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="route_name" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="start_station_id" Type="tinyint" Nullable="false" />
+          <Property Name="end_station_id" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="line_trace">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="line_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="latitude" Type="float" Nullable="false" />
+          <Property Name="longitude" Type="float" Nullable="false" />
+          <Property Name="direction" Type="tinyint" Nullable="false" />
+          <Property Name="order_number" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="station">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="station_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="latitude" Type="float" Nullable="false" />
+          <Property Name="longitude" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="station_on_line">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="line_id" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="station_id" Type="tinyint" Nullable="false" />
+          <Property Name="direction" Type="tinyint" Nullable="false" />
+          <Property Name="order_number" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="timetable">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="line_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="station_id" Type="tinyint" Nullable="false" />
+          <Property Name="start_time" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="weekday_flag" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <Function Name="calculate_distance_km" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="float">
+          <Parameter Name="lat1" Type="float" Mode="In" />
+          <Parameter Name="lat2" Type="float" Mode="In" />
+          <Parameter Name="lon1" Type="float" Mode="In" />
+          <Parameter Name="lon2" Type="float" Mode="In" />
+        </Function>
+        <EntityContainer Name="bus_dbModelStoreContainer">
+          <EntitySet Name="bus" EntityType="Self.bus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bus_data" EntityType="Self.bus_data" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bus_data2" EntityType="Self.bus_data2" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bus_driver_data" EntityType="Self.bus_driver_data" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bus_measurement" EntityType="Self.bus_measurement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bus_position" EntityType="Self.bus_position" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bus_reference" EntityType="Self.bus_reference" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bus_simulation" EntityType="Self.bus_simulation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bus_trace" EntityType="Self.bus_trace" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="car_data" EntityType="Self.car_data" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="line" EntityType="Self.line" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="line_trace" EntityType="Self.line_trace" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="station" EntityType="Self.station" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="station_on_line" EntityType="Self.station_on_line" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="timetable" EntityType="Self.timetable" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="bus_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="bus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="number_plate" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="line_id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="bus_data">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bus_id" Type="Int16" Nullable="false" />
+          <Property Name="number_plate" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="latitude" Type="Double" Nullable="false" />
+          <Property Name="longitude" Type="Double" Nullable="false" />
+          <Property Name="speed" Type="Double" Nullable="false" />
+          <Property Name="measurement_timestamp" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="bus_data2">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="line_id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="latitude" Type="Double" Nullable="false" />
+          <Property Name="longitude" Type="Double" Nullable="false" />
+          <Property Name="measurement_timestamp" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="bus_driver_data">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bus_id" Type="Int16" Nullable="false" />
+          <Property Name="latitude" Type="Double" Nullable="false" />
+          <Property Name="longitude" Type="Double" Nullable="false" />
+          <Property Name="position_accuracy" Type="Double" Nullable="false" />
+          <Property Name="speed" Type="Double" Nullable="false" />
+          <Property Name="speed_accuracy" Type="Double" Nullable="false" />
+          <Property Name="direction" Type="Int32" Nullable="false" />
+          <Property Name="accel_x" Type="Double" Nullable="false" />
+          <Property Name="accel_y" Type="Double" Nullable="false" />
+          <Property Name="accel_z" Type="Double" Nullable="false" />
+          <Property Name="gyro_x" Type="Double" Nullable="false" />
+          <Property Name="gyro_y" Type="Double" Nullable="false" />
+          <Property Name="gyro_z" Type="Double" Nullable="false" />
+          <Property Name="trace_match" Type="Int32" />
+          <Property Name="measurement_timestamp" Type="DateTime" Nullable="false" Precision="7" />
+        </EntityType>
+        <EntityType Name="bus_measurement">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bus_id" Type="Int16" Nullable="false" />
+          <Property Name="latitude" Type="Double" Nullable="false" />
+          <Property Name="longitude" Type="Double" Nullable="false" />
+          <Property Name="position_accuracy" Type="Double" Nullable="false" />
+          <Property Name="speed" Type="Double" Nullable="false" />
+          <Property Name="speed_accuracy" Type="Double" Nullable="false" />
+          <Property Name="direction" Type="Int32" Nullable="false" />
+          <Property Name="accel_x" Type="Double" Nullable="false" />
+          <Property Name="accel_y" Type="Double" Nullable="false" />
+          <Property Name="accel_z" Type="Double" Nullable="false" />
+          <Property Name="gyro_x" Type="Double" Nullable="false" />
+          <Property Name="gyro_y" Type="Double" Nullable="false" />
+          <Property Name="gyro_z" Type="Double" Nullable="false" />
+          <Property Name="trace_match" Type="Int32" />
+          <Property Name="measurement_timestamp" Type="DateTime" Nullable="false" Precision="7" />
+        </EntityType>
+        <EntityType Name="bus_position">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bus_id" Type="Int16" Nullable="false" />
+          <Property Name="latitude" Type="Double" Nullable="false" />
+          <Property Name="longitude" Type="Double" Nullable="false" />
+          <Property Name="datapoints_nearby" Type="Byte" />
+          <Property Name="measurement_timestamp" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="bus_reference">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="from_station_id" Type="Byte" Nullable="false" />
+          <Property Name="to_station_id" Type="Byte" Nullable="false" />
+          <Property Name="duration" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="interval_time" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="bus_simulation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bus_id" Type="Int16" Nullable="false" />
+          <Property Name="last_check_in" Type="Int32" Nullable="false" />
+          <Property Name="measurement_timestamp" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="bus_trace">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="line_id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="latitude" Type="Double" Nullable="false" />
+          <Property Name="longitude" Type="Double" Nullable="false" />
+          <Property Name="direction" Type="Byte" Nullable="false" />
+          <Property Name="order_number" Type="Int16" Nullable="false" />
+          <Property Name="exactTime" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="car_data">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bus_id" Type="Int16" Nullable="false" />
+          <Property Name="latitude" Type="Double" Nullable="false" />
+          <Property Name="longitude" Type="Double" Nullable="false" />
+          <Property Name="position_accuracy" Type="Double" Nullable="false" />
+          <Property Name="speed" Type="Double" Nullable="false" />
+          <Property Name="speed_accuracy" Type="Double" Nullable="false" />
+          <Property Name="direction" Type="Int32" Nullable="false" />
+          <Property Name="accel_x" Type="Double" Nullable="false" />
+          <Property Name="accel_y" Type="Double" Nullable="false" />
+          <Property Name="accel_z" Type="Double" Nullable="false" />
+          <Property Name="gyro_x" Type="Double" Nullable="false" />
+          <Property Name="gyro_y" Type="Double" Nullable="false" />
+          <Property Name="gyro_z" Type="Double" Nullable="false" />
+          <Property Name="trace_match" Type="Int32" />
+          <Property Name="measurement_timestamp" Type="DateTime" Nullable="false" Precision="7" />
+        </EntityType>
+        <EntityType Name="line">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="route_name" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="start_station_id" Type="Byte" Nullable="false" />
+          <Property Name="end_station_id" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="line_trace">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="line_id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="latitude" Type="Double" Nullable="false" />
+          <Property Name="longitude" Type="Double" Nullable="false" />
+          <Property Name="direction" Type="Byte" Nullable="false" />
+          <Property Name="order_number" Type="Int16" Nullable="false" />
+        </EntityType>
+        <EntityType Name="station">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="station_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="latitude" Type="Double" Nullable="false" />
+          <Property Name="longitude" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="station_on_line">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="line_id" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="station_id" Type="Byte" Nullable="false" />
+          <Property Name="direction" Type="Byte" Nullable="false" />
+          <Property Name="order_number" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="timetable">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="line_id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="station_id" Type="Byte" Nullable="false" />
+          <Property Name="start_time" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="weekday_flag" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="bus_dbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="bus" EntityType="Self.bus" />
+          <EntitySet Name="bus_data" EntityType="Self.bus_data" />
+          <EntitySet Name="bus_data2" EntityType="Self.bus_data2" />
+          <EntitySet Name="bus_driver_data" EntityType="Self.bus_driver_data" />
+          <EntitySet Name="bus_measurement" EntityType="Self.bus_measurement" />
+          <EntitySet Name="bus_position" EntityType="Self.bus_position" />
+          <EntitySet Name="bus_reference" EntityType="Self.bus_reference" />
+          <EntitySet Name="bus_simulation" EntityType="Self.bus_simulation" />
+          <EntitySet Name="bus_trace" EntityType="Self.bus_trace" />
+          <EntitySet Name="car_data" EntityType="Self.car_data" />
+          <EntitySet Name="line" EntityType="Self.line" />
+          <EntitySet Name="line_trace" EntityType="Self.line_trace" />
+          <EntitySet Name="station" EntityType="Self.station" />
+          <EntitySet Name="station_on_line" EntityType="Self.station_on_line" />
+          <EntitySet Name="timetable" EntityType="Self.timetable" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="bus_dbModelStoreContainer" CdmEntityContainer="bus_dbEntities">
+          <EntitySetMapping Name="bus">
+            <EntityTypeMapping TypeName="bus_dbModel.bus">
+              <MappingFragment StoreEntitySet="bus">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="number_plate" ColumnName="number_plate" />
+                <ScalarProperty Name="line_id" ColumnName="line_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bus_data">
+            <EntityTypeMapping TypeName="bus_dbModel.bus_data">
+              <MappingFragment StoreEntitySet="bus_data">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="bus_id" ColumnName="bus_id" />
+                <ScalarProperty Name="number_plate" ColumnName="number_plate" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+                <ScalarProperty Name="speed" ColumnName="speed" />
+                <ScalarProperty Name="measurement_timestamp" ColumnName="measurement_timestamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bus_data2">
+            <EntityTypeMapping TypeName="bus_dbModel.bus_data2">
+              <MappingFragment StoreEntitySet="bus_data2">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="line_id" ColumnName="line_id" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+                <ScalarProperty Name="measurement_timestamp" ColumnName="measurement_timestamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bus_driver_data">
+            <EntityTypeMapping TypeName="bus_dbModel.bus_driver_data">
+              <MappingFragment StoreEntitySet="bus_driver_data">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="bus_id" ColumnName="bus_id" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+                <ScalarProperty Name="position_accuracy" ColumnName="position_accuracy" />
+                <ScalarProperty Name="speed" ColumnName="speed" />
+                <ScalarProperty Name="speed_accuracy" ColumnName="speed_accuracy" />
+                <ScalarProperty Name="direction" ColumnName="direction" />
+                <ScalarProperty Name="accel_x" ColumnName="accel_x" />
+                <ScalarProperty Name="accel_y" ColumnName="accel_y" />
+                <ScalarProperty Name="accel_z" ColumnName="accel_z" />
+                <ScalarProperty Name="gyro_x" ColumnName="gyro_x" />
+                <ScalarProperty Name="gyro_y" ColumnName="gyro_y" />
+                <ScalarProperty Name="gyro_z" ColumnName="gyro_z" />
+                <ScalarProperty Name="trace_match" ColumnName="trace_match" />
+                <ScalarProperty Name="measurement_timestamp" ColumnName="measurement_timestamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bus_measurement">
+            <EntityTypeMapping TypeName="bus_dbModel.bus_measurement">
+              <MappingFragment StoreEntitySet="bus_measurement">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="bus_id" ColumnName="bus_id" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+                <ScalarProperty Name="position_accuracy" ColumnName="position_accuracy" />
+                <ScalarProperty Name="speed" ColumnName="speed" />
+                <ScalarProperty Name="speed_accuracy" ColumnName="speed_accuracy" />
+                <ScalarProperty Name="direction" ColumnName="direction" />
+                <ScalarProperty Name="accel_x" ColumnName="accel_x" />
+                <ScalarProperty Name="accel_y" ColumnName="accel_y" />
+                <ScalarProperty Name="accel_z" ColumnName="accel_z" />
+                <ScalarProperty Name="gyro_x" ColumnName="gyro_x" />
+                <ScalarProperty Name="gyro_y" ColumnName="gyro_y" />
+                <ScalarProperty Name="gyro_z" ColumnName="gyro_z" />
+                <ScalarProperty Name="trace_match" ColumnName="trace_match" />
+                <ScalarProperty Name="measurement_timestamp" ColumnName="measurement_timestamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bus_position">
+            <EntityTypeMapping TypeName="bus_dbModel.bus_position">
+              <MappingFragment StoreEntitySet="bus_position">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="bus_id" ColumnName="bus_id" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+                <ScalarProperty Name="datapoints_nearby" ColumnName="datapoints_nearby" />
+                <ScalarProperty Name="measurement_timestamp" ColumnName="measurement_timestamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bus_reference">
+            <EntityTypeMapping TypeName="bus_dbModel.bus_reference">
+              <MappingFragment StoreEntitySet="bus_reference">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="from_station_id" ColumnName="from_station_id" />
+                <ScalarProperty Name="to_station_id" ColumnName="to_station_id" />
+                <ScalarProperty Name="duration" ColumnName="duration" />
+                <ScalarProperty Name="interval_time" ColumnName="interval_time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bus_simulation">
+            <EntityTypeMapping TypeName="bus_dbModel.bus_simulation">
+              <MappingFragment StoreEntitySet="bus_simulation">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="bus_id" ColumnName="bus_id" />
+                <ScalarProperty Name="last_check_in" ColumnName="last_check_in" />
+                <ScalarProperty Name="measurement_timestamp" ColumnName="measurement_timestamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bus_trace">
+            <EntityTypeMapping TypeName="bus_dbModel.bus_trace">
+              <MappingFragment StoreEntitySet="bus_trace">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="line_id" ColumnName="line_id" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+                <ScalarProperty Name="direction" ColumnName="direction" />
+                <ScalarProperty Name="order_number" ColumnName="order_number" />
+                <ScalarProperty Name="exactTime" ColumnName="exactTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="car_data">
+            <EntityTypeMapping TypeName="bus_dbModel.car_data">
+              <MappingFragment StoreEntitySet="car_data">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="bus_id" ColumnName="bus_id" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+                <ScalarProperty Name="position_accuracy" ColumnName="position_accuracy" />
+                <ScalarProperty Name="speed" ColumnName="speed" />
+                <ScalarProperty Name="speed_accuracy" ColumnName="speed_accuracy" />
+                <ScalarProperty Name="direction" ColumnName="direction" />
+                <ScalarProperty Name="accel_x" ColumnName="accel_x" />
+                <ScalarProperty Name="accel_y" ColumnName="accel_y" />
+                <ScalarProperty Name="accel_z" ColumnName="accel_z" />
+                <ScalarProperty Name="gyro_x" ColumnName="gyro_x" />
+                <ScalarProperty Name="gyro_y" ColumnName="gyro_y" />
+                <ScalarProperty Name="gyro_z" ColumnName="gyro_z" />
+                <ScalarProperty Name="trace_match" ColumnName="trace_match" />
+                <ScalarProperty Name="measurement_timestamp" ColumnName="measurement_timestamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="line">
+            <EntityTypeMapping TypeName="bus_dbModel.line">
+              <MappingFragment StoreEntitySet="line">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="route_name" ColumnName="route_name" />
+                <ScalarProperty Name="start_station_id" ColumnName="start_station_id" />
+                <ScalarProperty Name="end_station_id" ColumnName="end_station_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="line_trace">
+            <EntityTypeMapping TypeName="bus_dbModel.line_trace">
+              <MappingFragment StoreEntitySet="line_trace">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="line_id" ColumnName="line_id" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+                <ScalarProperty Name="direction" ColumnName="direction" />
+                <ScalarProperty Name="order_number" ColumnName="order_number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="station">
+            <EntityTypeMapping TypeName="bus_dbModel.station">
+              <MappingFragment StoreEntitySet="station">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="station_name" ColumnName="station_name" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="station_on_line">
+            <EntityTypeMapping TypeName="bus_dbModel.station_on_line">
+              <MappingFragment StoreEntitySet="station_on_line">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="line_id" ColumnName="line_id" />
+                <ScalarProperty Name="station_id" ColumnName="station_id" />
+                <ScalarProperty Name="direction" ColumnName="direction" />
+                <ScalarProperty Name="order_number" ColumnName="order_number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="timetable">
+            <EntityTypeMapping TypeName="bus_dbModel.timetable">
+              <MappingFragment StoreEntitySet="timetable">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="line_id" ColumnName="line_id" />
+                <ScalarProperty Name="station_id" ColumnName="station_id" />
+                <ScalarProperty Name="start_time" ColumnName="start_time" />
+                <ScalarProperty Name="weekday_flag" ColumnName="weekday_flag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

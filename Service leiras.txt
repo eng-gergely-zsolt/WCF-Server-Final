@@ -1,0 +1,16 @@
+WCF service console application-ban host-olva (self hosted)
+
+Harom endpoint van megnyitva az egyik tcp kommunikaciot biztosit a masik http-t a harmadik ay ugynevezett meta-adat cserere szukseges.
+http://localhost:8080/
+net.tcp://localhost:8090
+
+PerSession kliens kiszolgalast ad nem hozz letre minden requestre ujjat de minden uj kliensre uj jon letre
+MultiThreading van be allitva amig egy klienssel tartja a kapcsolatot addig szamos kereset egyidejuleg tudja kiszolgalni.
+
+MSSql adatkapcsolat van ki alakitva Database first-t keszitettem mivel a sema mar adott volt 
+
+Service altal nyujtott szolgaltatasok:
+*Referencia ido lekerdezese (kliens-szerver szinkronizaciohoz)
+*Egy adott ID-ju busz jelenlegi adatainak es a meres idejenek a fogadasa
+*Busz megallok adatainak szolgaltatasa
+*Utvonalak adatainak szolgaltatasa
