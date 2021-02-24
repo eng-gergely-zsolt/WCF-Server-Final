@@ -16,19 +16,18 @@ namespace WCFService
     public class Service1 : IService1
     {
         List<bus> BusList = new List<bus>();
-        readonly bus_dbEntities BusDBEntities = new bus_dbEntities();
-        readonly List<BusDataType> BusInfirmationList = new List<BusDataType>();
-        readonly List<StationOnLineType> LineList = new List<StationOnLineType>();
         readonly List<StationType> StationList = new List<StationType>();
+        readonly List<LineType> LineList = new List<LineType>();
+
+        readonly bus_dbEntities BusDBEntities = new bus_dbEntities();
+        readonly List<CourseDataType> BusInfirmationList = new List<CourseDataType>();
+        readonly List<StationOnLineType> StationOnLineList = new List<StationOnLineType>();
         readonly List<TimetableType> TimetableList = new List<TimetableType>();
         readonly List<LineTraceType> BusTraceList = new List<LineTraceType>();
-        List<BusDataType> halii = new List<BusDataType>();
 
 
 
-
-
-
+        // 1
         [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json)]
         public List<StationType> GetStationList()
         {
@@ -44,6 +43,52 @@ namespace WCFService
 
 
 
+        // 2
+        // Elküldi a kliens oldalra a buszok vonalaihoz tartozó adatokat: vonal száma, kiinduló állomás, végállomás.
+        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json)]
+        public List<LineType> GetLineList()
+        {
+            var lineListWithStartTemp = (from line in BusDBEntities.line
+                                       join station in BusDBEntities.station
+                                       on line.start_station_id equals station.id
+                                       select new
+                                       {
+                                           line.id,
+                                           line.route_name,
+                                           line.start_station_id,
+                                           station.station_name,
+                                       }).ToList();
+
+            var lineListWithEndTemp = (from line in BusDBEntities.line
+                                        join station in BusDBEntities.station
+                                        on line.end_station_id equals station.id
+                                        select new
+                                        {
+                                            line.id,
+                                            line.route_name,
+                                            line.end_station_id,
+                                            station.station_name,
+                                        }).ToList();
+
+            LineList.Clear();
+            for (int i = 0; i < lineListWithStartTemp.Count(); ++i)
+            {
+                LineList.Add(new LineType(
+                    lineListWithStartTemp[i].id,
+                    lineListWithStartTemp[i].route_name,
+                    lineListWithStartTemp[i].start_station_id,
+                    lineListWithStartTemp[i].station_name,
+                    lineListWithEndTemp[i].end_station_id,
+                    lineListWithEndTemp[i].station_name
+                    ));
+            }
+
+            return LineList;
+        }
+
+
+
+        // 3
         [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json)]
         public List<LineTraceType> GetLineTraceList()
         {
@@ -65,12 +110,13 @@ namespace WCFService
                 };
 
                 //Megkeressük az adott BusId-hoz tartozó koordinátákat.
-                var vPointsList = BusDBEntities.line_trace.Where(e => e.line_id == i).
-                    Select(e => new { e.latitude, e.longitude, e.direction, e.order_number }).ToList();
+                var vPointsList = BusDBEntities.line_trace
+                    .Where(e => e.line_id == i)
+                    .Select(e => new {e.line_id, e.latitude, e.longitude, e.direction, e.order_number }).ToList();
 
                 foreach (var j in vPointsList)
                 {
-                    //A kapott koordinátákat párban hozzáadjuk az TraceType típushoz.
+                    //A kapott koordinátákat párban hozzáadjuk a TraceType típushoz.
                     vTraceList.LineTraceData.Add(new LineTraceDataType(j.latitude, j.longitude, j.direction, j.order_number));
                 }
 
@@ -84,13 +130,14 @@ namespace WCFService
 
 
         
+        // 4
         [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json)]
         public List<StationOnLineType> GetStationOnLineList()
         {
-            //Lekérdezzük a különböző vonalak LineID paraméterét.
+            // Lekérdezzük a különböző vonalakat.
             var vDistinctLineIdList = BusDBEntities.line.Select(e => e.id).ToList();
 
-            LineList.Clear();
+            StationOnLineList.Clear();
             foreach (var i in vDistinctLineIdList)
             {
                 var vLineList = new StationOnLineType
@@ -98,23 +145,25 @@ namespace WCFService
                     LineData = new List<StationOnLineDataType>()
                 };
 
-                //Lekérdezzük az összes LineID-hez tartozó StationID és StationNr adatokat.
+                // Lekérdezzük az összes vonalhoz tartozó adatokat egy újabb listába.
                 var vStationList = BusDBEntities.station_on_line.Where(e => e.line_id == i).Select(e => new { e.station_id, e.direction, e.order_number }).ToList();
                 foreach (var j in vStationList)
                 {
-                    //Egy LineID-hez több StationID és StationNr tartozik.
+                    // Minden vonalhoz egy külön listában gyűjtjük össze a hozzátartozó adatokhoz.
                     vLineList.LineData.Add(new StationOnLineDataType(j.station_id, j.direction, j.order_number));
                 }
-                //Végül a LineType adatunkhoz hozzáadjuk a LineID-t is.
+
+                // Végül a LineType adatunkhoz hozzáadjuk a LineID-t is.
                 vLineList.line_id = i;
-                LineList.Add(vLineList);
+                StationOnLineList.Add(vLineList);
             }
 
-            return LineList;
+            return StationOnLineList;
         }
 
 
 
+        // 5
         [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json)]
         public List<TimetableType> GetTimetableList()
         {
@@ -161,6 +210,7 @@ namespace WCFService
 
 
 
+        // 6
         [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json)]
         public List<bus> GetBusList()
         {
@@ -172,29 +222,31 @@ namespace WCFService
 
 
 
-        // Ez felel azért, hogy hol járnak a buszok.
+        // 7
+        // Lekéri a buszok pozícióját az adatbázisból.
         [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json)]
-        public List<BusDataType> GetBusInformationList()
+        public List<CourseDataType> GetCourseDataList()
         {
+            // Lekéri a bus_data táblából az összes rekordot, ahol a mesurement_timesatmp időpont benne van a 6 másodperces intervallumban.
+            // Az adatokat course_id szerint csoportosítja.
+            var groupedByCourseId = (from courseData in BusDBEntities.course_data
+                              where System.Data.Entity.DbFunctions.DiffSeconds(courseData.measurement_timestamp, System.DateTime.Now) < 6
+                              group courseData by courseData.course_id into groups
+                              select new { courseId = groups.Key, restData = groups.ToList() });
 
-            var vBusInformationList = (from bus in BusDBEntities.bus
-                                       join busData in BusDBEntities.bus_data
-                                       on bus.id equals busData.bus_id
-                                       //where (System.DateTime.Now - busData.Measurement_Timestamp).TotalSeconds <= 2
-                                       where System.Data.Entity.DbFunctions.DiffSeconds(busData.measurement_timestamp, System.DateTime.Now) < 6
-                                       select new
-                                       {
-                                           busData.bus_id,
-                                           bus.line_id,
-                                           busData.latitude,
-                                           busData.longitude,
-                                           busData.measurement_timestamp
-                                       }).ToList();
-
-            foreach(var i in vBusInformationList)
+            BusInfirmationList.Clear();
+            foreach (var i in groupedByCourseId)
             {
-                BusInfirmationList.Clear();
-                BusInfirmationList.Add(new BusDataType(i.bus_id, i.line_id, i.latitude, i.longitude, i.measurement_timestamp));
+                // Lekérdezi az aktuális csoportból a legfrisebb időpontot.
+                var minTimestamp = i.restData.Min(x => x.measurement_timestamp);
+
+                // Lekérdezi azt a rekordot a csoportból, amely tartalmazza az előbb lekérdezett időpontot.
+                var busInformation = i.restData.First(x => x.measurement_timestamp == minTimestamp);
+
+                BusInfirmationList.Add(new CourseDataType(
+                    busInformation.course_id, busInformation.line_id,
+                    busInformation.direction, busInformation.latitude, busInformation.longitude,
+                    busInformation.measurement_timestamp));
             }
 
             return BusInfirmationList;

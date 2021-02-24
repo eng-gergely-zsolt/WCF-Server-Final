@@ -103,9 +103,6 @@
     <Compile Include="bus_data.cs">
       <DependentUpon>BusDatabaseModel1.tt</DependentUpon>
     </Compile>
-    <Compile Include="bus_data2.cs">
-      <DependentUpon>BusDatabaseModel1.tt</DependentUpon>
-    </Compile>
     <Compile Include="bus_driver_data.cs">
       <DependentUpon>BusDatabaseModel1.tt</DependentUpon>
     </Compile>
@@ -125,6 +122,9 @@
       <DependentUpon>BusDatabaseModel1.tt</DependentUpon>
     </Compile>
     <Compile Include="car_data.cs">
+      <DependentUpon>BusDatabaseModel1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="course_data.cs">
       <DependentUpon>BusDatabaseModel1.tt</DependentUpon>
     </Compile>
     <Compile Include="IService1.cs" />

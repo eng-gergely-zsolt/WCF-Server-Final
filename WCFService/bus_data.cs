@@ -16,10 +16,11 @@ namespace WCFService
     {
         public int id { get; set; }
         public short bus_id { get; set; }
-        public string number_plate { get; set; }
+        public string course_id { get; set; }
+        public string line_id { get; set; }
+        public short direction { get; set; }
         public double latitude { get; set; }
         public double longitude { get; set; }
-        public double speed { get; set; }
         public System.DateTime measurement_timestamp { get; set; }
     }
 }

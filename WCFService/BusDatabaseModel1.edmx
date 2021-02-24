@@ -19,18 +19,9 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="bus_id" Type="smallint" Nullable="false" />
-          <Property Name="number_plate" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="latitude" Type="float" Nullable="false" />
-          <Property Name="longitude" Type="float" Nullable="false" />
-          <Property Name="speed" Type="float" Nullable="false" />
-          <Property Name="measurement_timestamp" Type="datetime" Nullable="false" />
-        </EntityType>
-        <EntityType Name="bus_data2">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="course_id" Type="varchar" MaxLength="8" Nullable="false" />
           <Property Name="line_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="direction" Type="smallint" Nullable="false" />
           <Property Name="latitude" Type="float" Nullable="false" />
           <Property Name="longitude" Type="float" Nullable="false" />
           <Property Name="measurement_timestamp" Type="datetime" Nullable="false" />
@@ -113,11 +104,13 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="line_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="course_id" Type="varchar" MaxLength="8" Nullable="false" />
           <Property Name="latitude" Type="float" Nullable="false" />
           <Property Name="longitude" Type="float" Nullable="false" />
           <Property Name="direction" Type="tinyint" Nullable="false" />
           <Property Name="order_number" Type="smallint" Nullable="false" />
           <Property Name="exactTime" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="is_weekday" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="car_data">
           <Key>
@@ -139,6 +132,18 @@
           <Property Name="gyro_z" Type="float" Nullable="false" />
           <Property Name="trace_match" Type="int" />
           <Property Name="measurement_timestamp" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="course_data">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="course_id" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="line_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="direction" Type="smallint" Nullable="false" />
+          <Property Name="latitude" Type="float" Nullable="false" />
+          <Property Name="longitude" Type="float" Nullable="false" />
+          <Property Name="measurement_timestamp" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="line">
           <Key>
@@ -198,7 +203,6 @@
         <EntityContainer Name="bus_dbModelStoreContainer">
           <EntitySet Name="bus" EntityType="Self.bus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="bus_data" EntityType="Self.bus_data" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="bus_data2" EntityType="Self.bus_data2" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="bus_driver_data" EntityType="Self.bus_driver_data" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="bus_measurement" EntityType="Self.bus_measurement" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="bus_position" EntityType="Self.bus_position" Schema="dbo" store:Type="Tables" />
@@ -206,6 +210,7 @@
           <EntitySet Name="bus_simulation" EntityType="Self.bus_simulation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="bus_trace" EntityType="Self.bus_trace" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="car_data" EntityType="Self.car_data" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="course_data" EntityType="Self.course_data" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="line" EntityType="Self.line" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="line_trace" EntityType="Self.line_trace" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="station" EntityType="Self.station" Schema="dbo" store:Type="Tables" />
@@ -231,18 +236,9 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="bus_id" Type="Int16" Nullable="false" />
-          <Property Name="number_plate" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="latitude" Type="Double" Nullable="false" />
-          <Property Name="longitude" Type="Double" Nullable="false" />
-          <Property Name="speed" Type="Double" Nullable="false" />
-          <Property Name="measurement_timestamp" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
-        <EntityType Name="bus_data2">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="course_id" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="line_id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="direction" Type="Int16" Nullable="false" />
           <Property Name="latitude" Type="Double" Nullable="false" />
           <Property Name="longitude" Type="Double" Nullable="false" />
           <Property Name="measurement_timestamp" Type="DateTime" Nullable="false" Precision="3" />
@@ -325,11 +321,13 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="line_id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="course_id" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="latitude" Type="Double" Nullable="false" />
           <Property Name="longitude" Type="Double" Nullable="false" />
           <Property Name="direction" Type="Byte" Nullable="false" />
           <Property Name="order_number" Type="Int16" Nullable="false" />
           <Property Name="exactTime" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="is_weekday" Type="Byte" Nullable="false" />
         </EntityType>
         <EntityType Name="car_data">
           <Key>
@@ -351,6 +349,18 @@
           <Property Name="gyro_z" Type="Double" Nullable="false" />
           <Property Name="trace_match" Type="Int32" />
           <Property Name="measurement_timestamp" Type="DateTime" Nullable="false" Precision="7" />
+        </EntityType>
+        <EntityType Name="course_data">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="course_id" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="line_id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="direction" Type="Int16" Nullable="false" />
+          <Property Name="latitude" Type="Double" Nullable="false" />
+          <Property Name="longitude" Type="Double" Nullable="false" />
+          <Property Name="measurement_timestamp" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="line">
           <Key>
@@ -404,7 +414,6 @@
         <EntityContainer Name="bus_dbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="bus" EntityType="Self.bus" />
           <EntitySet Name="bus_data" EntityType="Self.bus_data" />
-          <EntitySet Name="bus_data2" EntityType="Self.bus_data2" />
           <EntitySet Name="bus_driver_data" EntityType="Self.bus_driver_data" />
           <EntitySet Name="bus_measurement" EntityType="Self.bus_measurement" />
           <EntitySet Name="bus_position" EntityType="Self.bus_position" />
@@ -412,6 +421,7 @@
           <EntitySet Name="bus_simulation" EntityType="Self.bus_simulation" />
           <EntitySet Name="bus_trace" EntityType="Self.bus_trace" />
           <EntitySet Name="car_data" EntityType="Self.car_data" />
+          <EntitySet Name="course_data" EntityType="Self.course_data" />
           <EntitySet Name="line" EntityType="Self.line" />
           <EntitySet Name="line_trace" EntityType="Self.line_trace" />
           <EntitySet Name="station" EntityType="Self.station" />
@@ -438,19 +448,9 @@
               <MappingFragment StoreEntitySet="bus_data">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="bus_id" ColumnName="bus_id" />
-                <ScalarProperty Name="number_plate" ColumnName="number_plate" />
-                <ScalarProperty Name="latitude" ColumnName="latitude" />
-                <ScalarProperty Name="longitude" ColumnName="longitude" />
-                <ScalarProperty Name="speed" ColumnName="speed" />
-                <ScalarProperty Name="measurement_timestamp" ColumnName="measurement_timestamp" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="bus_data2">
-            <EntityTypeMapping TypeName="bus_dbModel.bus_data2">
-              <MappingFragment StoreEntitySet="bus_data2">
-                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="course_id" ColumnName="course_id" />
                 <ScalarProperty Name="line_id" ColumnName="line_id" />
+                <ScalarProperty Name="direction" ColumnName="direction" />
                 <ScalarProperty Name="latitude" ColumnName="latitude" />
                 <ScalarProperty Name="longitude" ColumnName="longitude" />
                 <ScalarProperty Name="measurement_timestamp" ColumnName="measurement_timestamp" />
@@ -539,11 +539,13 @@
               <MappingFragment StoreEntitySet="bus_trace">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="line_id" ColumnName="line_id" />
+                <ScalarProperty Name="course_id" ColumnName="course_id" />
                 <ScalarProperty Name="latitude" ColumnName="latitude" />
                 <ScalarProperty Name="longitude" ColumnName="longitude" />
                 <ScalarProperty Name="direction" ColumnName="direction" />
                 <ScalarProperty Name="order_number" ColumnName="order_number" />
                 <ScalarProperty Name="exactTime" ColumnName="exactTime" />
+                <ScalarProperty Name="is_weekday" ColumnName="is_weekday" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -565,6 +567,19 @@
                 <ScalarProperty Name="gyro_y" ColumnName="gyro_y" />
                 <ScalarProperty Name="gyro_z" ColumnName="gyro_z" />
                 <ScalarProperty Name="trace_match" ColumnName="trace_match" />
+                <ScalarProperty Name="measurement_timestamp" ColumnName="measurement_timestamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="course_data">
+            <EntityTypeMapping TypeName="bus_dbModel.course_data">
+              <MappingFragment StoreEntitySet="course_data">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="course_id" ColumnName="course_id" />
+                <ScalarProperty Name="line_id" ColumnName="line_id" />
+                <ScalarProperty Name="direction" ColumnName="direction" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
                 <ScalarProperty Name="measurement_timestamp" ColumnName="measurement_timestamp" />
               </MappingFragment>
             </EntityTypeMapping>

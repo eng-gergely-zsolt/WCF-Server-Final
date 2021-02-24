@@ -15,6 +15,10 @@ namespace WCFService
 
 
         [OperationContract]
+        List<LineType> GetLineList();
+
+
+        [OperationContract]
         List<LineTraceType> GetLineTraceList();
 
 
@@ -26,23 +30,12 @@ namespace WCFService
         List<ArrivalTimeType> GetArrivalTimeList(int StationID);
 
 
-        //[OperationContract]
-        //List<BusDataType> GetBusInformationList();
-
-
         [OperationContract]
-        List<BusDataType> GetBusInformationList();
-
-
-        //[OperationContract]
-        //List<Bus> GetBusList();
+        List<CourseDataType> GetCourseDataList();
 
 
         [OperationContract]
         List<bus> GetBusList();
-
-        //[OperationContract]
-        //List<string> GetBusList2();
 
 
         [OperationContract]
@@ -71,7 +64,7 @@ namespace WCFService
 
 
 
-    //Station details
+    // A megállókat összefoglaló típus
     [DataContract]
     public class StationType
     {
@@ -94,6 +87,41 @@ namespace WCFService
 
         [DataMember]
         public double longitude;
+    }
+
+
+
+    // A vonalakat összefoglaló típus.
+    [DataContract]
+    public class LineType
+    {
+        public LineType(String pId, String pRouteName, short pStartStationId, String pStartStationName, short pEndStationId, String pEndStationName)
+        {
+            id = pId;
+            routeName = pRouteName;
+            startStationId = pStartStationId;
+            startStationName = pStartStationName;
+            endStationId = pEndStationId;
+            endStationName = pEndStationName;
+        }
+
+        [DataMember]
+        public string id;
+
+        [DataMember]
+        public string routeName;
+
+        [DataMember]
+        public short startStationId;
+
+        [DataMember]
+        public string startStationName;
+
+        [DataMember]
+        public short endStationId;
+
+        [DataMember]
+        public string endStationName;
     }
 
 
@@ -259,26 +287,69 @@ namespace WCFService
     [DataContract]
     public class BusDataType
     {
-        public BusDataType(short busIdIns, string busNameIns, double actLatIns, double actLongIns, System.DateTime measTimestampIns)
+        public BusDataType(short busId, string courseId, string lineId, int direction, double latitude, double longitude, System.DateTime measurementTimestamp)
         {
-            BusId = busIdIns;
-            LineId = busNameIns;
-            Actual_Latitude = actLatIns;
-            Actual_Longitude = actLongIns;
-            Measurement_Timestamp = measTimestampIns;
+            BusId = busId;
+            CourseId = courseId;
+            LineId = lineId;
+            Direction = direction;
+            Latitude = latitude;
+            Longitude = longitude;
+            Measurement_Timestamp = measurementTimestamp;
         }
 
         [DataMember]
         public short BusId { get; set; }
 
         [DataMember]
+        public string CourseId { get; set; }
+
+        [DataMember]
         public string LineId { get; set; }
 
         [DataMember]
-        public double Actual_Latitude { get; set; }
+        public int Direction { get; set; }
 
         [DataMember]
-        public double Actual_Longitude { get; set; }
+        public double Latitude { get; set; }
+
+        [DataMember]
+        public double Longitude { get; set; }
+
+        [DataMember]
+        public System.DateTime Measurement_Timestamp { get; set; }
+    }
+
+
+
+    // A járatok adatait leíró osztály.
+    [DataContract]
+    public class CourseDataType
+    {
+        public CourseDataType(string courseId, string lineId, int direction, double latitude, double longitude, System.DateTime measurementTimestamp)
+        {
+            CourseId = courseId;
+            LineId = lineId;
+            Direction = direction;
+            Latitude = latitude;
+            Longitude = longitude;
+            Measurement_Timestamp = measurementTimestamp;
+        }
+
+        [DataMember]
+        public string CourseId { get; set; }
+
+        [DataMember]
+        public string LineId { get; set; }
+
+        [DataMember]
+        public int Direction { get; set; }
+
+        [DataMember]
+        public double Latitude { get; set; }
+
+        [DataMember]
+        public double Longitude { get; set; }
 
         [DataMember]
         public System.DateTime Measurement_Timestamp { get; set; }
@@ -309,8 +380,8 @@ namespace WCFService
         {
             BusId = instance.BusId;
             BusName = instance.LineId;
-            Actual_Latitude = instance.Actual_Latitude;
-            Actual_Longitude = instance.Actual_Longitude;
+            Actual_Latitude = instance.Latitude;
+            Actual_Longitude = instance.Longitude;
         }
 
         [DataMember]
@@ -348,7 +419,7 @@ namespace WCFService
     {
         public PositionType(string insBusName, bus_data busInstance)
         {
-            BusId = busInstance.bus_id;
+            //BusId = busInstance.bus_id;
             BusName = insBusName;
             Actual_Latitude = busInstance.latitude;
             Actual_Longitude = busInstance.longitude;

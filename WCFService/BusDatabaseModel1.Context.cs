@@ -27,7 +27,6 @@ namespace WCFService
     
         public virtual DbSet<bus> bus { get; set; }
         public virtual DbSet<bus_data> bus_data { get; set; }
-        public virtual DbSet<bus_data2> bus_data2 { get; set; }
         public virtual DbSet<bus_driver_data> bus_driver_data { get; set; }
         public virtual DbSet<bus_measurement> bus_measurement { get; set; }
         public virtual DbSet<bus_position> bus_position { get; set; }
@@ -35,6 +34,7 @@ namespace WCFService
         public virtual DbSet<bus_simulation> bus_simulation { get; set; }
         public virtual DbSet<bus_trace> bus_trace { get; set; }
         public virtual DbSet<car_data> car_data { get; set; }
+        public virtual DbSet<course_data> course_data { get; set; }
         public virtual DbSet<line> line { get; set; }
         public virtual DbSet<line_trace> line_trace { get; set; }
         public virtual DbSet<station> station { get; set; }

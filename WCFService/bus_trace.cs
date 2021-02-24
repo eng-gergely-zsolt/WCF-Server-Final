@@ -16,10 +16,12 @@ namespace WCFService
     {
         public int id { get; set; }
         public string line_id { get; set; }
+        public string course_id { get; set; }
         public double latitude { get; set; }
         public double longitude { get; set; }
         public byte direction { get; set; }
         public short order_number { get; set; }
         public string exactTime { get; set; }
+        public byte is_weekday { get; set; }
     }
 }
